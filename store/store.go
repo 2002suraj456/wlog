@@ -37,7 +37,7 @@ func (s *Store) SaveData(content []byte) error {
 
 	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		panic(fmt.Sprintf("error opening file %s: %v", filePath, err))
+		return fmt.Errorf("error opening file %s: %v", filePath, err)
 	}
 
 	defer func(file *os.File) {
@@ -51,7 +51,7 @@ func (s *Store) SaveData(content []byte) error {
 	content = append([]byte(fmt.Sprintf("%s,", currTime)), content...)
 
 	if _, err := file.Write(content); err != nil {
-		panic(fmt.Sprintf("error writing to file %s: %v", filePath, err))
+		return fmt.Errorf("error writing to file %s: %v", filePath, err)
 	}
 
 	return nil
