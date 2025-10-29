@@ -8,6 +8,9 @@ import (
 )
 
 func main() {
+	st := store.NewStore(store.Option{
+		Directory: "./wlog_data",
+	})
 	switch processArgs() {
 	case Input:
 		{
@@ -20,10 +23,6 @@ func main() {
 			fmt.Println("Content from editor:")
 			fmt.Println(content)
 
-			st := store.NewStore(store.Option{
-				Directory: "./wlog_data",
-			})
-
 			err = st.SaveData([]byte(content))
 			if err != nil {
 				fmt.Println("error saving to store:", err)
@@ -35,6 +34,7 @@ func main() {
 	case Manage:
 		{
 			// some tui based manager for logs
+
 		}
 	case Unknown:
 		{
